@@ -1,5 +1,49 @@
 # Project Notes
 
+## Angular Best Practices (from angular.dev)
+
+### TypeScript
+- Use strict type checking
+- Prefer type inference when the type is obvious
+- Avoid `any`; use `unknown` when type is uncertain
+
+### Components
+- Always use standalone components over NgModules
+- Do NOT set `standalone: true` in decorators (default in Angular v20+)
+- Use signals for state management
+- Use `input()` and `output()` functions instead of decorators
+- Use `computed()` for derived state
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component`
+- Prefer inline templates for small components
+- Prefer Reactive forms over Template-driven ones
+- Do NOT use `ngClass`/`ngStyle`, use `class`/`style` bindings instead
+- Do NOT use `@HostBinding`/`@HostListener`, use `host` object in decorator instead
+- Use `NgOptimizedImage` for all static images
+
+### State Management
+- Use signals for local component state
+- Use `computed()` for derived state
+- Keep state transformations pure and predictable
+- Do NOT use `mutate` on signals, use `update` or `set`
+
+### Templates
+- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use the async pipe to handle observables
+- Do not assume globals like `new Date()` are available in templates
+- Do not write arrow functions in templates (not supported)
+
+### Services
+- Design services around a single responsibility
+- Use `providedIn: 'root'` for singleton services
+- Use `inject()` instead of constructor injection
+
+### Routing
+- Implement lazy loading for feature routes
+
+### Accessibility
+- Must pass all AXE checks
+- Must follow WCAG AA minimums (focus management, color contrast, ARIA attributes)
+
 ## Coding Standards
 
 - KISS: Keep every function and module as simple as possible. If it feels clever, simplify it.
