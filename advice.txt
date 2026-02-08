@@ -1,0 +1,11 @@
+Yo ! pour ton projet de form / donation pour l'école, voilà ce que je peux te reco:
+Si tu veux de l'hébergement complètement gratos:
+- stack : nextjs / nuxtjs c'est le plus hebergement friendly, t'as Vercel ou Netlify qui héberge gratos, meme le server side fourni par le framework (ils convertissen en serverless function). 
+Si tu veux rester sur ce que tu connais, tu peux go Angular + des serverless functions. En gros t'as ton front angular, et tu créer un dossier function, avec des fichiers node natif qui implémente des function server side, et Netlify/Vercel te les héberge sur un endpoint (https://www.netlify.com/platform/core/functions/). Les functions ont des quotas, mais large en gratos pour les side project (e.g 100k appels par mois)
+Pour la db, go supabase ou neon (postgres hébergé avec plan gratuit - limité en stockage mais pour les side project ca passe creme)
+
+- pour l'ia, je dirais go mistral AI ou gemini, car y'a des plans gratos sur les API, si t'acceptes qu'ils utilisent tes datas. En gros c'est illimité, mais avec du throttle (ca va plus lentement). Et pour l'alternative à claude code, mistral et gemini fournissent leur CLI (mistral code ou gemini cli), sinon t'as opencode 
+
+- pour le prompt, faut juste bien spécifier que tu veux utiliser nextjs/nuxt/angular avec neon/postgres. Si c'est angular tu spécifies que le back sera des serverless function avec Netlify/Vercel. Si tu dois faire une page de paiement, dis lui d'utiliser Stripe Checkout. et tu spec un peu pour les features, en lui demandant de faire un plan et de confirmer avec toi. 
+
+Normalement il devrait te one shot un truc, avec un fichier .env et toutes les variables d'environment a remplir (database connection string, stripe API keys, ...)

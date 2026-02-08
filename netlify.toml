@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = "dist/formulaire-paiement/browser"
+
+[dev]
+  command = "npx ng serve"
+  targetPort = 4200
+  port = 8888
+  framework = "#static"
+  autoLaunch = false
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

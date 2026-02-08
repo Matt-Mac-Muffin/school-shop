@@ -1,0 +1,81 @@
+<div class="shop-container">
+  <header class="shop-header">
+    <h1>Vente de l'école</h1>
+    <p>Découvrez nos produits et commandez en ligne !</p>
+  </header>
+
+  @if (loading()) {
+    <div class="loading">Chargement des produits...</div>
+  }
+
+  @if (errorMsg()) {
+    <div class="error-banner">{{ errorMsg() }}</div>
+  }
+
+  <div class="product-grid">
+    @for (product of products(); track product.id) {
+      <div class="product-card">
+        @if (product.image_url) {
+          <img [src]="product.image_url" [alt]="product.name" class="product-image" />
+        } @else {
+          <div class="product-image-placeholder">📦</div>
+        }
+        <div class="product-info">
+          <h2>{{ product.name }}</h2>
+          <p class="product-description">{{ product.description }}</p>
+          <p class="product-price">{{ formatPrice(product.price_cents) }}</p>
+          <button class="btn btn-primary" (click)="openOrder(product)">Commander</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (products().length === 0 && !loading()) {
+    <p class="empty-message">Aucun produit disponible pour le moment.</p>
+  }
+</div>
+
+<!-- Modal formulaire de commande -->
+@if (selectedProduct()) {
+  <div class="modal-overlay" (click)="closeOrder()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeOrder()">✕</button>
+      <h2>Commander : {{ selectedProduct()!.name }}</h2>
+      <p class="modal-price">Prix unitaire : {{ formatPrice(selectedProduct()!.price_cents) }}</p>
+
+      <form (ngSubmit)="submitOrder()">
+        <div class="form-group">
+          <label for="customer_name">Nom du parent</label>
+          <input id="customer_name" type="text" [(ngModel)]="formData.customer_name" name="customer_name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="customer_email">Email</label>
+          <input id="customer_email" type="email" [(ngModel)]="formData.customer_email" name="customer_email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantité</label>
+          <input id="quantity" type="number" [(ngModel)]="formData.quantity" name="quantity" min="1" max="100" required />
+        </div>
+
+        <div class="form-group">
+          <label for="child_class">Classe de l'enfant</label>
+          <input id="child_class" type="text" [(ngModel)]="formData.child_class" name="child_class" placeholder="Ex: CM1" />
+        </div>
+
+        <p class="order-total">
+          Total : {{ formatPrice(selectedProduct()!.price_cents * formData.quantity) }}
+        </p>
+
+        @if (errorMsg()) {
+          <div class="error-banner">{{ errorMsg() }}</div>
+        }
+
+        <button class="btn btn-primary btn-full" type="submit" [disabled]="submitting()">
+          {{ submitting() ? 'Redirection vers le paiement...' : 'Payer maintenant' }}
+        </button>
+      </form>
+    </div>
+  </div>
+}

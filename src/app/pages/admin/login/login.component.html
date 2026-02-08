@@ -1,0 +1,26 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1>Administration</h1>
+    <p>Connectez-vous pour gérer les produits et commandes.</p>
+
+    @if (errorMsg()) {
+      <div class="error-banner">{{ errorMsg() }}</div>
+    }
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <button class="btn btn-primary btn-full" type="submit" [disabled]="loading()">
+        {{ loading() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+  </div>
+</div>
