@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "formulaire-paiement": {
+    "school-shop": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,10 +63,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "formulaire-paiement:build:production"
+              "buildTarget": "school-shop:build:production"
             },
             "development": {
-              "buildTarget": "formulaire-paiement:build:development"
+              "buildTarget": "school-shop:build:development"
             }
           },
           "defaultConfiguration": "development"

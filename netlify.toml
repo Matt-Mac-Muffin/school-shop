@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist/formulaire-paiement/browser"
+  publish = "dist/school-shop/browser"
 
 [dev]
   command = "npx ng serve"
