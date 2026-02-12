@@ -1,3 +1,46 @@
+/* Service indisponible */
+.service-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.service-down-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.service-down h1 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin: 0 0 0.75rem;
+}
+
+.service-down p {
+  color: #475569;
+  margin: 0 0 0.25rem;
+  max-width: 400px;
+}
+
+.service-down-hint {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
 .shop-container {
   max-width: 1000px;
   margin: 0 auto;

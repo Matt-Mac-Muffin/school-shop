@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService, CheckoutRequest } from '../../services/api.service';
@@ -10,17 +10,19 @@ import { Product } from '../../models/product';
   imports: [CommonModule, FormsModule],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopComponent implements OnInit {
   products = signal<Product[]>([]);
   loading = signal(true);
   errorMsg = signal('');
+  serviceDown = signal(false);
 
   selectedProduct = signal<Product | null>(null);
   formData = { customer_name: '', customer_email: '', quantity: 1, child_class: '' };
   submitting = signal(false);
 
-  constructor(private api: ApiService) {}
+  private api = inject(ApiService);
 
   ngOnInit(): void {
     this.api.getProducts().subscribe({
@@ -29,7 +31,7 @@ export class ShopComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.errorMsg.set('Impossible de charger les produits.');
+        this.serviceDown.set(true);
         this.loading.set(false);
       },
     });

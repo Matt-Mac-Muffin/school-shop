@@ -1,39 +1,44 @@
-<div class="shop-container">
-  <header class="shop-header">
-    <h1>Vente de l'école</h1>
-    <p>Découvrez nos produits et commandez en ligne !</p>
-  </header>
+@if (serviceDown()) {
+  <div class="service-down">
+    <div class="service-down-icon" aria-hidden="true">!</div>
+    <h1>Service temporairement indisponible</h1>
+    <p>La boutique ne peut pas afficher les produits pour le moment. Aucun achat n'est possible.</p>
+    <p class="service-down-hint">Veuillez rafraîchir la page dans quelques instants.</p>
+  </div>
+} @else {
+  <div class="shop-container">
+    <header class="shop-header">
+      <h1>Vente de l'école</h1>
+      <p>Découvrez nos produits et commandez en ligne !</p>
+    </header>
 
-  @if (loading()) {
-    <div class="loading">Chargement des produits...</div>
-  }
+    @if (loading()) {
+      <div class="loading">Chargement des produits...</div>
+    }
 
-  @if (errorMsg()) {
-    <div class="error-banner">{{ errorMsg() }}</div>
-  }
-
-  <div class="product-grid">
-    @for (product of products(); track product.id) {
-      <div class="product-card">
-        @if (product.image_url) {
-          <img [src]="product.image_url" [alt]="product.name" class="product-image" />
-        } @else {
-          <div class="product-image-placeholder">📦</div>
-        }
-        <div class="product-info">
-          <h2>{{ product.name }}</h2>
-          <p class="product-description">{{ product.description }}</p>
-          <p class="product-price">{{ formatPrice(product.price_cents) }}</p>
-          <button class="btn btn-primary" (click)="openOrder(product)">Commander</button>
+    <div class="product-grid">
+      @for (product of products(); track product.id) {
+        <div class="product-card">
+          @if (product.image_url) {
+            <img [src]="product.image_url" [alt]="product.name" class="product-image" />
+          } @else {
+            <div class="product-image-placeholder">📦</div>
+          }
+          <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="product-description">{{ product.description }}</p>
+            <p class="product-price">{{ formatPrice(product.price_cents) }}</p>
+            <button class="btn btn-primary" (click)="openOrder(product)">Commander</button>
+          </div>
         </div>
-      </div>
+      }
+    </div>
+
+    @if (products().length === 0 && !loading()) {
+      <p class="empty-message">Aucun produit disponible pour le moment.</p>
     }
   </div>
-
-  @if (products().length === 0 && !loading()) {
-    <p class="empty-message">Aucun produit disponible pour le moment.</p>
-  }
-</div>
+}
 
 <!-- Modal formulaire de commande -->
 @if (selectedProduct()) {
